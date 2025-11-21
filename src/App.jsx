@@ -3,8 +3,10 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const INCREMENT = 1,
+    INITIAL_COUNT = 0,
+    [count, setCount] = useState(INITIAL_COUNT);
 
   return (
     <>
@@ -18,7 +20,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={() => setCount((prevCount) => prevCount + INCREMENT)}>
           count is {count}
         </button>
         <p>
@@ -30,6 +32,6 @@ function App() {
       </p>
     </>
   );
-}
+};
 
 export default App;
