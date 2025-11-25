@@ -5,7 +5,8 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default defineConfig([
-  globalIgnores(["dist"]),
+  // Ignore build output and config files
+  globalIgnores(["dist", "src/firebase.js"]),
   {
     extends: [
       js.configs.all,
