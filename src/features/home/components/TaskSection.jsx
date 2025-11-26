@@ -13,7 +13,7 @@ export default function TaskSection({ title, tasks, onToggle, onDelete }) {
             key={task.id}
             id={task.id}
             text={task.text}
-            completed={task.completed}
+            isCompleted={task.isCompleted}
             onToggle={onToggle}
             onDelete={onDelete}
           />

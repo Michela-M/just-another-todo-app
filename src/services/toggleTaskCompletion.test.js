@@ -20,19 +20,19 @@ describe("toggleTaskCompletion", () => {
     doc.mockReturnValue(mockDocRef);
   });
 
-  it("should mark a task as completed", async () => {
+  it("should mark a task as isCompleted", async () => {
     const taskId = "abc123";
     await toggleTaskCompletion(taskId, true);
 
     expect(doc).toHaveBeenCalledWith(db, "tasks", taskId);
-    expect(updateDoc).toHaveBeenCalledWith(mockDocRef, { completed: true });
+    expect(updateDoc).toHaveBeenCalledWith(mockDocRef, { isCompleted: true });
   });
 
-  it("should mark a task as not completed", async () => {
+  it("should mark a task as not isCompleted", async () => {
     const taskId = "xyz789";
     await toggleTaskCompletion(taskId, false);
 
     expect(doc).toHaveBeenCalledWith(db, "tasks", taskId);
-    expect(updateDoc).toHaveBeenCalledWith(mockDocRef, { completed: false });
+    expect(updateDoc).toHaveBeenCalledWith(mockDocRef, { isCompleted: false });
   });
 });

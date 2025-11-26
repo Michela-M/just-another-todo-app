@@ -3,7 +3,7 @@ import React from "react";
 export default function ChecklistItem({
   id,
   text,
-  completed,
+  isCompleted,
   onToggle,
   onDelete,
 }) {
@@ -11,14 +11,14 @@ export default function ChecklistItem({
     <div className="card px-2 py-2 flex items-center gap-2">
       <input
         type="checkbox"
-        checked={completed}
-        onChange={() => onToggle(id, !completed)}
+        checked={isCompleted}
+        onChange={() => onToggle(id, !isCompleted)}
         data-testid="checkbox"
         className="accent-primary w-4 h-4"
       />
 
       <span
-        className={`flex-1 text-primary ${completed ? "line-through" : ""}`}
+        className={`flex-1 text-primary ${isCompleted ? "line-through" : ""}`}
       >
         {text}
       </span>

@@ -17,28 +17,28 @@ const mockTasks = [
   {
     id: "1",
     text: "Task 1",
-    completed: false,
+    isCompleted: false,
     archived: false,
     updatedAt: new Date("2025-01-02T10:00:00Z"),
   },
   {
     id: "2",
     text: "Task 2",
-    completed: true,
+    isCompleted: true,
     archived: false,
     updatedAt: new Date("2025-01-01T09:00:00Z"),
   },
   {
     id: "3",
     text: "Task 3",
-    completed: false,
+    isCompleted: false,
     archived: false,
     updatedAt: new Date("2025-01-03T08:00:00Z"),
   },
   {
     id: "4",
     text: "Task 4",
-    completed: true,
+    isCompleted: true,
     archived: true,
     updatedAt: new Date("2025-01-04T07:00:00Z"),
   },
@@ -55,7 +55,7 @@ describe("get tasks", () => {
           id: task.id,
           data: () => ({
             text: task.text,
-            completed: task.completed,
+            isCompleted: task.isCompleted,
             archived: task.archived,
             updatedAt: { seconds: Math.floor(task.updatedAt.getTime() / 1000) },
           }),
@@ -69,7 +69,7 @@ describe("get tasks", () => {
       {
         id: "3",
         text: "Task 3",
-        completed: false,
+        isCompleted: false,
         archived: false,
         updatedAt: {
           seconds: Math.floor(
@@ -80,7 +80,7 @@ describe("get tasks", () => {
       {
         id: "1",
         text: "Task 1",
-        completed: false,
+        isCompleted: false,
         archived: false,
         updatedAt: {
           seconds: Math.floor(
@@ -91,7 +91,7 @@ describe("get tasks", () => {
       {
         id: "2",
         text: "Task 2",
-        completed: true,
+        isCompleted: true,
         archived: false,
         updatedAt: {
           seconds: Math.floor(
@@ -101,13 +101,13 @@ describe("get tasks", () => {
       },
     ]);
   });
-  it("should return only completed tasks", async () => {
+  it("should return only isCompleted tasks", async () => {
     const tasks = await getTasks(true);
     expect(tasks).toEqual([
       {
         id: "2",
         text: "Task 2",
-        completed: true,
+        isCompleted: true,
         archived: false,
         updatedAt: {
           seconds: Math.floor(
@@ -123,7 +123,7 @@ describe("get tasks", () => {
       {
         id: "3",
         text: "Task 3",
-        completed: false,
+        isCompleted: false,
         archived: false,
         updatedAt: {
           seconds: Math.floor(
@@ -134,7 +134,7 @@ describe("get tasks", () => {
       {
         id: "1",
         text: "Task 1",
-        completed: false,
+        isCompleted: false,
         archived: false,
         updatedAt: {
           seconds: Math.floor(

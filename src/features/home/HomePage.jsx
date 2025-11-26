@@ -13,8 +13,8 @@ export default function HomePage() {
   const [error, setError] = useState(null);
   const [tasks, setTasks] = useState([]);
 
-  const activeTasks = tasks.filter((task) => !task.completed);
-  const completedTasks = tasks.filter((task) => task.completed);
+  const activeTasks = tasks.filter((task) => !task.isCompleted);
+  const completedTasks = tasks.filter((task) => task.isCompleted);
 
   useEffect(() => {
     fetchTasks();
@@ -44,8 +44,8 @@ export default function HomePage() {
     }
   };
 
-  const handleToggle = async (id, completed) => {
-    await toggleTaskCompletion(id, completed);
+  const handleToggle = async (id, isCompleted) => {
+    await toggleTaskCompletion(id, isCompleted);
     fetchTasks();
   };
 

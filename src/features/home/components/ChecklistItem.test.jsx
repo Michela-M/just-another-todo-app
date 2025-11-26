@@ -5,7 +5,7 @@ import ChecklistItem from "./ChecklistItem";
 
 describe("ChecklistItem", () => {
   it("renders unchecked state correctly", () => {
-    render(<ChecklistItem id="1" text="Buy milk" completed={false} />);
+    render(<ChecklistItem id="1" text="Buy milk" isCompleted={false} />);
 
     const checkbox = screen.getByTestId("checkbox");
     expect(checkbox).not.toBeChecked();
@@ -17,7 +17,7 @@ describe("ChecklistItem", () => {
   });
 
   it("renders checked state correctly", () => {
-    render(<ChecklistItem id="2" text="Buy eggs" completed={true} />);
+    render(<ChecklistItem id="2" text="Buy eggs" isCompleted={true} />);
 
     const checkbox = screen.getByTestId("checkbox");
     expect(checkbox).toBeChecked();
@@ -34,7 +34,7 @@ describe("ChecklistItem", () => {
       <ChecklistItem
         id="3"
         text="Buy bread"
-        completed={false}
+        isCompleted={false}
         onToggle={onToggle}
       />,
     );
@@ -49,7 +49,7 @@ describe("ChecklistItem", () => {
       <ChecklistItem
         id="4"
         text="Buy butter"
-        completed={false}
+        isCompleted={false}
         onDelete={onDelete}
       />,
     );

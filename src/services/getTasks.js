@@ -1,7 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 
-export async function getTasks(completed = null) {
+export async function getTasks(isCompleted = null) {
   const q = query(collection(db, "tasks"), where("archived", "==", false));
   const querySnapshot = await getDocs(q);
   let tasks = querySnapshot.docs.map((doc) => ({
@@ -9,8 +9,8 @@ export async function getTasks(completed = null) {
     ...doc.data(),
   }));
 
-  if (completed !== null) {
-    tasks = tasks.filter((task) => task.completed === completed);
+  if (isCompleted !== null) {
+    tasks = tasks.filter((task) => task.isCompleted === isCompleted);
   }
 
   return tasks.sort((a, b) => {
