@@ -55,31 +55,36 @@ export default function HomePage() {
   };
 
   return (
-    <div>
-      <h1>Today's Tasks</h1>
-      <Input
-        placeholder="Enter a task"
-        value={taskTitle}
-        onChange={setTaskTitle}
-      />
-      <Button
-        label={loading ? "Saving..." : "Save Task"}
-        onClick={handleSave}
-        disabled={loading || !taskTitle.trim()}
-      />
-      {error && <p className="text-red-500">{error}</p>}
-      <TaskSection
-        title="To do"
-        tasks={activeTasks}
-        onToggle={handleToggle}
-        onDelete={handleDelete}
-      />
-      <TaskSection
-        title="Completed"
-        tasks={completedTasks}
-        onToggle={handleToggle}
-        onDelete={handleDelete}
-      />
+    <div className="bg-amber-50">
+      <div className="max-w-[40%] mx-auto flex flex-col items-center gap-6 min-h-screen justify-center">
+        <h1 class="text-4xl text-primary">Today's Tasks</h1>
+        <div class="flex gap-2 w-full">
+          <Input
+            placeholder="Enter a task"
+            value={taskTitle}
+            onChange={setTaskTitle}
+          />
+          <Button
+            label={loading ? "Saving..." : "Save Task"}
+            onClick={handleSave}
+            disabled={loading || !taskTitle.trim()}
+          />
+          {error && <p className="text-red-500">{error}</p>}
+        </div>
+
+        <TaskSection
+          title="To do"
+          tasks={activeTasks}
+          onToggle={handleToggle}
+          onDelete={handleDelete}
+        />
+        <TaskSection
+          title="Completed"
+          tasks={completedTasks}
+          onToggle={handleToggle}
+          onDelete={handleDelete}
+        />
+      </div>
     </div>
   );
 }

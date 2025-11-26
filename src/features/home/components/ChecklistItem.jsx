@@ -8,22 +8,24 @@ export default function ChecklistItem({
   onDelete,
 }) {
   return (
-    <div className="flex items-center space-x-2">
-      {/* Checkbox */}
+    <div className="card px-2 py-2 flex items-center gap-2">
       <input
         type="checkbox"
         checked={completed}
         onChange={() => onToggle(id, !completed)}
         data-testid="checkbox"
+        className="accent-primary w-4 h-4"
       />
 
-      {/* Text */}
-      <span className={completed ? "line-through" : ""}>{text}</span>
+      <span
+        className={`flex-1 text-primary ${completed ? "line-through" : ""}`}
+      >
+        {text}
+      </span>
 
-      {/* Delete icon */}
       <i
         data-testid="delete-icon"
-        className="bi bi-trash cursor-pointer text-red-500 ml-auto"
+        className="bi bi-trash cursor-pointer w-4 h-6 flex items-center justify-center leading-none text-primary"
         onClick={() => onDelete(id)}
       ></i>
     </div>

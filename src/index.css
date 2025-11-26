@@ -1,1 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #3d568f;
+  --text-primary: #3d568f;
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+
+  --shadow-card: 4px 4px 0 0
+    color-mix(in oklab, var(--color-primary), black 20%);
+}
+
+.card {
+  @apply border-2 border-primary rounded-md shadow-card mb-1 mr-1 bg-white;
+}

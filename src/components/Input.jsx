@@ -12,9 +12,9 @@ export default function Input({
     props.id || `input-${placeholder.replace(/\s+/g, "-").toLowerCase()}`;
 
   return (
-    <div className="input-wrapper">
+    <div className="flex flex-col gap-1 flex-1">
       {label && (
-        <label htmlFor={id} className="input-label">
+        <label htmlFor={id} className="font-medium text-primary">
           {label}
         </label>
       )}
@@ -24,11 +24,11 @@ export default function Input({
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="input-field"
+        className="card text-primary px-2 py-2"
         {...props}
       />
 
-      {helperText && <p className="input-helper">{helperText}</p>}
+      {helperText && <p className="text-xs text-gray-500">{helperText}</p>}
     </div>
   );
 }

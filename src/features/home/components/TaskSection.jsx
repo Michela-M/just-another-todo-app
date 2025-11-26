@@ -3,8 +3,8 @@ import ChecklistItem from "./ChecklistItem";
 
 export default function TaskSection({ title, tasks, onToggle, onDelete }) {
   return (
-    <section>
-      <h2>{title}</h2>
+    <section className="flex flex-col gap-2 w-full">
+      <h2 className="text-3xl text-primary">{title}</h2>
       {tasks.length === 0 ? (
         <p>No tasks</p>
       ) : (
