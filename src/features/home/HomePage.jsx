@@ -1,12 +1,27 @@
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { useState } from "react";
-import { saveTask } from "../../services/saveTask"; // use named import
+import { useState, useEffect } from "react";
+import { saveTask } from "../../services/saveTask";
+import { getTasks } from "../../services/getTasks";
+import TaskSection from "./components/TaskSection";
 
 export default function HomePage() {
   const [taskTitle, setTaskTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [tasks, setTasks] = useState([]);
+
+  const activeTasks = tasks.filter((task) => !task.completed);
+  const completedTasks = tasks.filter((task) => task.completed);
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = async () => {
+    const data = await getTasks();
+    setTasks(data);
+  };
 
   const handleSave = async () => {
     try {
@@ -14,11 +29,12 @@ export default function HomePage() {
       setError(null);
 
       await saveTask(taskTitle, () => {
-        // optional callback after saving
         console.log("Task added!");
       });
 
-      setTaskTitle(""); // clear input after save
+      setTaskTitle("");
+
+      fetchTasks();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -40,6 +56,18 @@ export default function HomePage() {
         disabled={loading || !taskTitle.trim()}
       />
       {error && <p className="text-red-500">{error}</p>}
+      <TaskSection
+        title="To do"
+        tasks={activeTasks}
+        onToggle={() => {}}
+        onDelete={() => {}}
+      />
+      <TaskSection
+        title="Completed"
+        tasks={completedTasks}
+        onToggle={() => {}}
+        onDelete={() => {}}
+      />
     </div>
   );
 }
