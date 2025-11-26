@@ -9,7 +9,7 @@ import TaskSection from "./components/TaskSection";
 
 export default function HomePage() {
   const [taskTitle, setTaskTitle] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [tasks, setTasks] = useState([]);
 
@@ -27,7 +27,7 @@ export default function HomePage() {
 
   const handleSave = async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       setError(null);
 
       await saveTask(taskTitle, () => {
@@ -40,7 +40,7 @@ export default function HomePage() {
     } catch (err) {
       setError(err.message);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -65,9 +65,9 @@ export default function HomePage() {
             onChange={setTaskTitle}
           />
           <Button
-            label={loading ? "Saving..." : "Save Task"}
+            label={isLoading ? "Saving..." : "Save Task"}
             onClick={handleSave}
-            disabled={loading || !taskTitle.trim()}
+            disabled={isLoading || !taskTitle.trim()}
           />
           {error && <p className="text-red-500">{error}</p>}
         </div>
