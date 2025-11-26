@@ -1,5 +1,3 @@
-## 🧠 Feature Request: [Feature Name]
-
 ### Summary
 
 Briefly describe the changes introduced in this PR.
