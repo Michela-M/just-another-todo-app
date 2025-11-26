@@ -16,28 +16,28 @@ vi.mock("firebase/firestore", async () => {
 const mockTasks = [
   {
     id: "1",
-    text: "Task 1",
+    description: "Task 1",
     isCompleted: false,
     isArchived: false,
     updatedAt: new Date("2025-01-02T10:00:00Z"),
   },
   {
     id: "2",
-    text: "Task 2",
+    description: "Task 2",
     isCompleted: true,
     isArchived: false,
     updatedAt: new Date("2025-01-01T09:00:00Z"),
   },
   {
     id: "3",
-    text: "Task 3",
+    description: "Task 3",
     isCompleted: false,
     isArchived: false,
     updatedAt: new Date("2025-01-03T08:00:00Z"),
   },
   {
     id: "4",
-    text: "Task 4",
+    description: "Task 4",
     isCompleted: true,
     isArchived: true,
     updatedAt: new Date("2025-01-04T07:00:00Z"),
@@ -54,7 +54,7 @@ describe("get tasks", () => {
         .map((task) => ({
           id: task.id,
           data: () => ({
-            text: task.text,
+            description: task.description,
             isCompleted: task.isCompleted,
             isArchived: task.isArchived,
             updatedAt: { seconds: Math.floor(task.updatedAt.getTime() / 1000) },
@@ -68,7 +68,7 @@ describe("get tasks", () => {
     expect(tasks).toEqual([
       {
         id: "3",
-        text: "Task 3",
+        description: "Task 3",
         isCompleted: false,
         isArchived: false,
         updatedAt: {
@@ -79,7 +79,7 @@ describe("get tasks", () => {
       },
       {
         id: "1",
-        text: "Task 1",
+        description: "Task 1",
         isCompleted: false,
         isArchived: false,
         updatedAt: {
@@ -90,7 +90,7 @@ describe("get tasks", () => {
       },
       {
         id: "2",
-        text: "Task 2",
+        description: "Task 2",
         isCompleted: true,
         isArchived: false,
         updatedAt: {
@@ -106,7 +106,7 @@ describe("get tasks", () => {
     expect(tasks).toEqual([
       {
         id: "2",
-        text: "Task 2",
+        description: "Task 2",
         isCompleted: true,
         isArchived: false,
         updatedAt: {
@@ -122,7 +122,7 @@ describe("get tasks", () => {
     expect(tasks).toEqual([
       {
         id: "3",
-        text: "Task 3",
+        description: "Task 3",
         isCompleted: false,
         isArchived: false,
         updatedAt: {
@@ -133,7 +133,7 @@ describe("get tasks", () => {
       },
       {
         id: "1",
-        text: "Task 1",
+        description: "Task 1",
         isCompleted: false,
         isArchived: false,
         updatedAt: {

@@ -33,7 +33,7 @@ describe("save task", () => {
       isArchived: false,
       isCompleted: false,
       createdAt: "2025-01-01T12:00:00Z",
-      text: "New Task",
+      description: "New Task",
       updatedAt: "2025-01-01T12:00:00Z",
     });
     expect(onTaskAdded).toHaveBeenCalled();

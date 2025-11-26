@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ChecklistItem({
   id,
-  text,
+  description,
   isCompleted,
   onToggle,
   onDelete,
@@ -20,7 +20,7 @@ export default function ChecklistItem({
       <span
         className={`flex-1 text-primary ${isCompleted ? "line-through" : ""}`}
       >
-        {text}
+        {description}
       </span>
 
       <i

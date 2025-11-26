@@ -11,7 +11,7 @@ export const saveTask = async (title, onTaskAdded) => {
     isArchived: false,
     isCompleted: false,
     createdAt: serverTimestamp(),
-    text: trimmedTitle,
+    description: trimmedTitle,
     updatedAt: serverTimestamp(),
   });
 

@@ -5,7 +5,7 @@ import TaskSection from "./TaskSection";
 
 // Mock ChecklistItem so we can focus on TaskSection behavior
 vi.mock("./ChecklistItem", () => ({
-  default: ({ id, text, isCompleted, onToggle, onDelete }) => (
+  default: ({ id, description, isCompleted, onToggle, onDelete }) => (
     <div>
       <input
         type="checkbox"
@@ -13,7 +13,7 @@ vi.mock("./ChecklistItem", () => ({
         onChange={() => onToggle(id, !isCompleted)}
         data-testid={`checkbox-${id}`}
       />
-      <span>{text}</span>
+      <span>{description}</span>
       <button data-testid={`delete-${id}`} onClick={() => onDelete(id)}>
         Delete
       </button>
@@ -48,8 +48,8 @@ describe("TaskSection", () => {
 
   it("renders a list of tasks", () => {
     const tasks = [
-      { id: "1", text: "Buy milk", isCompleted: false },
-      { id: "2", text: "Walk dog", isCompleted: true },
+      { id: "1", description: "Buy milk", isCompleted: false },
+      { id: "2", description: "Walk dog", isCompleted: true },
     ];
     render(
       <TaskSection
@@ -65,7 +65,7 @@ describe("TaskSection", () => {
 
   it("calls onToggle when checkbox clicked", async () => {
     const onToggle = vi.fn();
-    const tasks = [{ id: "1", text: "Test task", isCompleted: false }];
+    const tasks = [{ id: "1", description: "Test task", isCompleted: false }];
     render(
       <TaskSection
         title="My Tasks"
@@ -80,7 +80,7 @@ describe("TaskSection", () => {
 
   it("calls onDelete when delete clicked", async () => {
     const onDelete = vi.fn();
-    const tasks = [{ id: "1", text: "Test task", isCompleted: false }];
+    const tasks = [{ id: "1", description: "Test task", isCompleted: false }];
     render(
       <TaskSection
         title="My Tasks"

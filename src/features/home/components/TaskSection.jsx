@@ -12,7 +12,7 @@ export default function TaskSection({ title, tasks, onToggle, onDelete }) {
           <ChecklistItem
             key={task.id}
             id={task.id}
-            text={task.text}
+            description={task.description}
             isCompleted={task.isCompleted}
             onToggle={onToggle}
             onDelete={onDelete}
