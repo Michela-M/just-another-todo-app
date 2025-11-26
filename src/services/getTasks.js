@@ -2,7 +2,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 
 export async function getTasks(isCompleted = null) {
-  const q = query(collection(db, "tasks"), where("archived", "==", false));
+  const q = query(collection(db, "tasks"), where("isArchived", "==", false));
   const querySnapshot = await getDocs(q);
   let tasks = querySnapshot.docs.map((doc) => ({
     id: doc.id,

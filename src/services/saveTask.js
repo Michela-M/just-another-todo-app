@@ -8,7 +8,7 @@ export const saveTask = async (title, onTaskAdded) => {
   }
 
   await addDoc(collection(db, "tasks"), {
-    archived: false,
+    isArchived: false,
     isCompleted: false,
     createdAt: serverTimestamp(),
     text: trimmedTitle,

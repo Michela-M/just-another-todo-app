@@ -18,28 +18,28 @@ const mockTasks = [
     id: "1",
     text: "Task 1",
     isCompleted: false,
-    archived: false,
+    isArchived: false,
     updatedAt: new Date("2025-01-02T10:00:00Z"),
   },
   {
     id: "2",
     text: "Task 2",
     isCompleted: true,
-    archived: false,
+    isArchived: false,
     updatedAt: new Date("2025-01-01T09:00:00Z"),
   },
   {
     id: "3",
     text: "Task 3",
     isCompleted: false,
-    archived: false,
+    isArchived: false,
     updatedAt: new Date("2025-01-03T08:00:00Z"),
   },
   {
     id: "4",
     text: "Task 4",
     isCompleted: true,
-    archived: true,
+    isArchived: true,
     updatedAt: new Date("2025-01-04T07:00:00Z"),
   },
 ];
@@ -50,13 +50,13 @@ describe("get tasks", () => {
     collection.mockReturnValue({});
     getDocs.mockResolvedValue({
       docs: mockTasks
-        .filter((task) => task.archived === false)
+        .filter((task) => task.isArchived === false)
         .map((task) => ({
           id: task.id,
           data: () => ({
             text: task.text,
             isCompleted: task.isCompleted,
-            archived: task.archived,
+            isArchived: task.isArchived,
             updatedAt: { seconds: Math.floor(task.updatedAt.getTime() / 1000) },
           }),
         })),
@@ -70,7 +70,7 @@ describe("get tasks", () => {
         id: "3",
         text: "Task 3",
         isCompleted: false,
-        archived: false,
+        isArchived: false,
         updatedAt: {
           seconds: Math.floor(
             new Date("2025-01-03T08:00:00Z").getTime() / 1000,
@@ -81,7 +81,7 @@ describe("get tasks", () => {
         id: "1",
         text: "Task 1",
         isCompleted: false,
-        archived: false,
+        isArchived: false,
         updatedAt: {
           seconds: Math.floor(
             new Date("2025-01-02T10:00:00Z").getTime() / 1000,
@@ -92,7 +92,7 @@ describe("get tasks", () => {
         id: "2",
         text: "Task 2",
         isCompleted: true,
-        archived: false,
+        isArchived: false,
         updatedAt: {
           seconds: Math.floor(
             new Date("2025-01-01T09:00:00Z").getTime() / 1000,
@@ -108,7 +108,7 @@ describe("get tasks", () => {
         id: "2",
         text: "Task 2",
         isCompleted: true,
-        archived: false,
+        isArchived: false,
         updatedAt: {
           seconds: Math.floor(
             new Date("2025-01-01T09:00:00Z").getTime() / 1000,
@@ -124,7 +124,7 @@ describe("get tasks", () => {
         id: "3",
         text: "Task 3",
         isCompleted: false,
-        archived: false,
+        isArchived: false,
         updatedAt: {
           seconds: Math.floor(
             new Date("2025-01-03T08:00:00Z").getTime() / 1000,
@@ -135,7 +135,7 @@ describe("get tasks", () => {
         id: "1",
         text: "Task 1",
         isCompleted: false,
-        archived: false,
+        isArchived: false,
         updatedAt: {
           seconds: Math.floor(
             new Date("2025-01-02T10:00:00Z").getTime() / 1000,

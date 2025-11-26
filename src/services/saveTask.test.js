@@ -30,7 +30,7 @@ describe("save task", () => {
 
     expect(collection).toHaveBeenCalledWith(db, "tasks");
     expect(mockAddDoc).toHaveBeenCalledWith(mockCollectionRef, {
-      archived: false,
+      isArchived: false,
       isCompleted: false,
       createdAt: "2025-01-01T12:00:00Z",
       text: "New Task",
