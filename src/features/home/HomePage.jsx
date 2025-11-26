@@ -3,6 +3,8 @@ import Input from "../../components/Input";
 import { useState, useEffect } from "react";
 import { saveTask } from "../../services/saveTask";
 import { getTasks } from "../../services/getTasks";
+import { toggleTaskCompletion } from "../../services/toggleTaskCompletion";
+import { deleteTask } from "../../services/deleteTask";
 import TaskSection from "./components/TaskSection";
 
 export default function HomePage() {
@@ -42,6 +44,16 @@ export default function HomePage() {
     }
   };
 
+  const handleToggle = async (id, completed) => {
+    await toggleTaskCompletion(id, completed);
+    fetchTasks();
+  };
+
+  const handleDelete = async (id) => {
+    await deleteTask(id);
+    fetchTasks();
+  };
+
   return (
     <div>
       <h1>Today's Tasks</h1>
@@ -59,14 +71,14 @@ export default function HomePage() {
       <TaskSection
         title="To do"
         tasks={activeTasks}
-        onToggle={() => {}}
-        onDelete={() => {}}
+        onToggle={handleToggle}
+        onDelete={handleDelete}
       />
       <TaskSection
         title="Completed"
         tasks={completedTasks}
-        onToggle={() => {}}
-        onDelete={() => {}}
+        onToggle={handleToggle}
+        onDelete={handleDelete}
       />
     </div>
   );
