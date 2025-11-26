@@ -23,7 +23,7 @@ export default function Input({
         id={id}
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
         className="input-field"
         {...props}
       />

@@ -1,15 +1,25 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Input from "./Input"; // your component
+import { describe, expect, vi, it } from "vitest";
+import Input from "./Input";
 
 describe("Input component", () => {
   it("renders with a placeholder", () => {
-    render(<Input placeholder="Enter your name" />);
+    render(
+      <Input placeholder="Enter your name" value="" onChange={() => {}} />,
+    );
     expect(screen.getByPlaceholderText("Enter your name")).toBeInTheDocument();
   });
 
   it("renders with an optional label", () => {
-    render(<Input placeholder="Email" label="Email Address" />);
+    render(
+      <Input
+        placeholder="Email"
+        label="Email Address"
+        value=""
+        onChange={() => {}}
+      />,
+    );
     expect(screen.getByLabelText("Email Address")).toBeInTheDocument();
   });
 
@@ -18,6 +28,8 @@ describe("Input component", () => {
       <Input
         placeholder="Password"
         helperText="Must be at least 8 characters"
+        value=""
+        onChange={() => {}}
       />,
     );
     expect(
@@ -26,9 +38,13 @@ describe("Input component", () => {
   });
 
   it("accepts user input", async () => {
-    render(<Input placeholder="Type here" />);
+    const handleChange = vi.fn();
+    render(<Input placeholder="Type here" value="" onChange={handleChange} />);
     const input = screen.getByPlaceholderText("Type here");
+
     await userEvent.type(input, "Hello");
-    expect(input).toHaveValue("Hello");
+
+    expect(handleChange).toHaveBeenCalled();
+    expect(handleChange).toHaveBeenCalledWith("H");
   });
 });
