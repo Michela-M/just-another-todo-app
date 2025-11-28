@@ -1,0 +1,42 @@
+import React from "react";
+import PropTypes from "prop-types";
+
+export default function ChecklistItem({
+  id,
+  description,
+  isCompleted,
+  onToggle,
+  onDelete,
+}) {
+  return (
+    <div className="card px-2 py-2 flex items-center gap-2">
+      <input
+        type="checkbox"
+        checked={isCompleted}
+        onChange={() => onToggle(id, !isCompleted)}
+        data-testid="checkbox"
+        className="accent-primary w-4 h-4"
+      />
+
+      <span
+        className={`flex-1 text-primary ${isCompleted ? "line-through" : ""}`}
+      >
+        {description}
+      </span>
+
+      <i
+        data-testid="delete-icon"
+        className="bi bi-trash cursor-pointer w-4 h-6 flex items-center justify-center leading-none text-primary"
+        onClick={() => onDelete(id)}
+      ></i>
+    </div>
+  );
+}
+
+ChecklistItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  isCompleted: PropTypes.bool.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};

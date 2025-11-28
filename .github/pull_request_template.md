@@ -1,55 +1,38 @@
-## 🧠 Feature Request: [Feature Name]
+### Summary
 
-### Overview
+Briefly describe the changes introduced in this PR.
 
-Brief description of the feature and its purpose.
+### Changes
 
-### Goals
+- [ ] Added / updated configuration
+- [ ] Implemented new functionality
+- [ ] Fixed bug(s)
+- [ ] Updated documentation
+- [ ] Other: [describe]
 
-What should this feature achieve?
+### Motivation
 
-### User Story
+Why are these changes necessary? What problem do they solve?
 
-_As a [user], I want to [do something] so that [benefit]._
+### Testing
 
-### Requirements
+- [ ] Unit tests added / updated
+- [ ] Component tests added / updated
+- [ ] CI workflow passes
+- [ ] Manual verification done
 
-- [ ] Functional requirement 1
-- [ ] Functional requirement 2
+### Impact
 
-### UI/UX Design
+- Does this PR introduce breaking changes?
+- Does it affect production code or only tooling/tests?
 
-Describe any interface changes, layout ideas, or user interactions. Include sketches or links if needed.
+### Related Issues / References
 
-### Technical Notes
+Link to any relevant issues, discussions, or documentation.
 
-Any implementation ideas, libraries, APIs, or architectural decisions.
+### Checklist
 
-### Data Considerations
-
-Will this feature require new data models, migrations, or API changes?
-
-### Testing Plan
-
-How will you test this feature? Unit tests, manual steps, edge cases?
-
-### Risks & Mitigations
-
-Any potential issues or blockers, and how you’ll handle them.
-
-### Related Issues / Dependencies
-
-Links to other issues, features, or components this depends on.
-
-### Priority
-
-- [ ] Low
-- [ ] Medium
-- [ ] High
-
-### Estimated Effort
-
-- [ ] < 1 hour
-- [ ] 1–3 hours
-- [ ] Full day
-- [ ] Multi-day
+- [ ] Code follows project guidelines
+- [ ] Tests pass locally
+- [ ] Linting passes
+- [ ] Documentation updated (if needed)
