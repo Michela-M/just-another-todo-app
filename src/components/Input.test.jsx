@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, vi, it } from "vitest";
 import Input from "./Input";
+import React from "react";
 
 describe("Input component", () => {
   it("renders with a placeholder", () => {

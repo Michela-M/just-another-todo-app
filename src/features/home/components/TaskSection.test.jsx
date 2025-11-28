@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi, describe, it, expect } from "vitest";
 import TaskSection from "./TaskSection";
+import React from "react";
 
 // Mock ChecklistItem so we can focus on TaskSection behavior
 vi.mock("./ChecklistItem", () => ({

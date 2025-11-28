@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { useState, useEffect } from "react";
@@ -57,8 +58,8 @@ export default function HomePage() {
   return (
     <div className="bg-amber-50">
       <div className="max-w-[40%] mx-auto flex flex-col items-center gap-6 min-h-screen justify-center">
-        <h1 class="text-4xl text-primary">Today's Tasks</h1>
-        <div class="flex gap-2 w-full">
+        <h1 className="text-4xl text-primary">Today`&apos;`s Tasks</h1>
+        <div className="flex gap-2 w-full">
           <Input
             placeholder="Enter a task"
             value={taskTitle}

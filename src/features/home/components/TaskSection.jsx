@@ -1,5 +1,6 @@
 import React from "react";
 import ChecklistItem from "./ChecklistItem";
+import PropTypes from "prop-types";
 
 export default function TaskSection({ title, tasks, onToggle, onDelete }) {
   return (
@@ -22,3 +23,16 @@ export default function TaskSection({ title, tasks, onToggle, onDelete }) {
     </section>
   );
 }
+
+TaskSection.propTypes = {
+  title: PropTypes.string.isRequired,
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      isCompleted: PropTypes.bool.isRequired,
+    }),
+  ).isRequired,
+  onToggle: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
