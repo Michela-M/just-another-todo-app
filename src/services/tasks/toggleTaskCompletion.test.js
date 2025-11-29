@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { toggleTaskCompletion } from "./toggleTaskCompletion";
 import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../../src/firebase";
+import { db } from "../../firebase";
 
 vi.mock("firebase/firestore", async () => {
   const actual = await vi.importActual("firebase/firestore");

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { db } from "../../src/firebase";
+import { db } from "../../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { saveTask } from "./saveTask";
 
@@ -13,35 +13,49 @@ vi.mock("firebase/firestore", async () => {
   };
 });
 
-describe("save task", () => {
-  const mockAddDoc = addDoc,
-    mockCollectionRef = {};
+describe("saveTask", () => {
+  const mockAddDoc = addDoc;
+  const mockCollectionRef = {};
 
   beforeEach(() => {
     vi.clearAllMocks();
     collection.mockReturnValue(mockCollectionRef);
   });
 
-  it("should create a new task with valid data", async () => {
+  it("should create a new task with valid data (AUTH-UT-016)", async () => {
     mockAddDoc.mockResolvedValueOnce({ id: "task123" });
 
     const onTaskAdded = vi.fn();
-    await saveTask("New Task", onTaskAdded);
+    await saveTask("New Task", "abc123", onTaskAdded);
 
     expect(collection).toHaveBeenCalledWith(db, "tasks");
     expect(mockAddDoc).toHaveBeenCalledWith(mockCollectionRef, {
+      description: "New Task",
+      userId: "abc123",
       isArchived: false,
       isCompleted: false,
       createdAt: "2025-01-01T12:00:00Z",
-      description: "New Task",
       updatedAt: "2025-01-01T12:00:00Z",
     });
     expect(onTaskAdded).toHaveBeenCalled();
   });
 
-  it("should throw if title is missing", async () => {
-    await expect(saveTask("", vi.fn())).rejects.toThrow(
+  it("should throw if title is missing (AUTH-UT-017)", async () => {
+    await expect(saveTask("", "abc123", vi.fn())).rejects.toThrow(
       "Task title is required",
     );
+  });
+
+  it("should attach correct userId to new task (AUTH-UT-018)", async () => {
+    mockAddDoc.mockResolvedValueOnce({ id: "task123" });
+
+    await saveTask("New Task", "abc123", vi.fn());
+
+    const [[, taskData]] = mockAddDoc.mock.calls;
+    expect(taskData.userId).toBe("abc123");
+  });
+
+  it("should throw if userId is missing (AUTH-UT-019)", async () => {
+    await expect(saveTask("New Task")).rejects.toThrow("User ID is required");
   });
 });
