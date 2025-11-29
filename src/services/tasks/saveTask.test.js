@@ -22,7 +22,7 @@ describe("saveTask", () => {
     collection.mockReturnValue(mockCollectionRef);
   });
 
-  it("should create a new task with valid data (AUTH-UT-016)", async () => {
+  it("should create a new task with valid data", async () => {
     mockAddDoc.mockResolvedValueOnce({ id: "task123" });
 
     const onTaskAdded = vi.fn();
@@ -40,13 +40,13 @@ describe("saveTask", () => {
     expect(onTaskAdded).toHaveBeenCalled();
   });
 
-  it("should throw if title is missing (AUTH-UT-017)", async () => {
+  it("should throw if title is missing", async () => {
     await expect(saveTask("", "abc123", vi.fn())).rejects.toThrow(
       "Task title is required",
     );
   });
 
-  it("should attach correct userId to new task (AUTH-UT-018)", async () => {
+  it("should attach correct userId to new task", async () => {
     mockAddDoc.mockResolvedValueOnce({ id: "task123" });
 
     await saveTask("New Task", "abc123", vi.fn());
@@ -55,7 +55,7 @@ describe("saveTask", () => {
     expect(taskData.userId).toBe("abc123");
   });
 
-  it("should throw if userId is missing (AUTH-UT-019)", async () => {
+  it("should throw if userId is missing", async () => {
     await expect(saveTask("New Task")).rejects.toThrow("User ID is required");
   });
 });
