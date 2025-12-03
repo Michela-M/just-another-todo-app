@@ -1,4 +1,4 @@
-import { getDocs, collection } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 
 /**
@@ -7,7 +7,7 @@ import { db } from "../../firebase";
  * @param {boolean|null} completedFilter - true = only completed, false = only active, null/undefined = all.
  * @returns {Promise<Array>} - Sorted tasks.
  */
-export async function getTasks(userId, completedFilter = null) {
+export const getTasks = async (userId, completedFilter = null) => {
   const tasksRef = collection(db, "tasks");
   const snapshot = await getDocs(tasksRef);
 
@@ -26,7 +26,9 @@ export async function getTasks(userId, completedFilter = null) {
     tasks = tasks.filter((task) => task.isCompleted === false);
   }
 
-  tasks.sort((a, b) => b.updatedAt.seconds - a.updatedAt.seconds);
+  tasks.sort(
+    (taskA, taskB) => taskB.updatedAt.seconds - taskA.updatedAt.seconds,
+  );
 
   return tasks;
-}
+};

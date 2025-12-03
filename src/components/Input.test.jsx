@@ -1,13 +1,15 @@
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, expect, vi, it } from "vitest";
 import Input from "./Input";
 import React from "react";
+import userEvent from "@testing-library/user-event";
 
 describe("Input component", () => {
+  const noopChange = vi.fn();
+
   it("renders with a placeholder", () => {
     render(
-      <Input placeholder="Enter your name" value="" onChange={() => {}} />,
+      <Input placeholder="Enter your name" value="" onChange={noopChange} />,
     );
     expect(screen.getByPlaceholderText("Enter your name")).toBeInTheDocument();
   });
@@ -18,7 +20,7 @@ describe("Input component", () => {
         placeholder="Email"
         label="Email Address"
         value=""
-        onChange={() => {}}
+        onChange={noopChange}
       />,
     );
     expect(screen.getByLabelText("Email Address")).toBeInTheDocument();
@@ -30,7 +32,7 @@ describe("Input component", () => {
         placeholder="Password"
         helperText="Must be at least 8 characters"
         value=""
-        onChange={() => {}}
+        onChange={noopChange}
       />,
     );
     expect(

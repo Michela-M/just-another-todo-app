@@ -1,25 +1,23 @@
-import { describe, it, expect, vi } from "vitest";
-import { logout } from "./logout";
+import { describe, expect, it, vi } from "vitest";
 import { getCurrentUser } from "./getCurrentUser";
+import { logout } from "./logout";
 
-let mockCurrentUser = { uid: "abc123", email: "user@example.com" };
+let mockCurrentUser = { email: "user@example.com", uid: "abc123" };
 
-vi.mock("firebase/auth", () => {
-  return {
-    getAuth: vi.fn(() => ({
-      currentUser: mockCurrentUser,
-    })),
-    signOut: vi.fn(() => {
-      mockCurrentUser = null;
-      return Promise.resolve();
-    }),
-  };
-});
+vi.mock("firebase/auth", () => ({
+  getAuth: vi.fn(() => ({
+    currentUser: mockCurrentUser,
+  })),
+  signOut: vi.fn(() => {
+    mockCurrentUser = null;
+    return Promise.resolve();
+  }),
+}));
 
 describe("Auth - Logout", () => {
   it("should clear session and set current user to null (AUTH-UT-007)", async () => {
     // Precondition: user is logged in
-    mockCurrentUser = { uid: "abc123", email: "user@example.com" };
+    mockCurrentUser = { email: "user@example.com", uid: "abc123" };
 
     await logout();
     const user = getCurrentUser();

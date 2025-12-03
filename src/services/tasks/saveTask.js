@@ -1,4 +1,4 @@
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 
 /**
@@ -8,7 +8,7 @@ import { db } from "../../firebase";
  * @param {Function} [onTaskAdded] - Optional callback invoked after task is added.
  * @returns {Promise<object>} - The created task reference.
  */
-export async function saveTask(title, userId, onTaskAdded) {
+export const saveTask = async (title, userId, onTaskAdded) => {
   if (!title) {
     throw new Error("Task title is required");
   }
@@ -18,12 +18,12 @@ export async function saveTask(title, userId, onTaskAdded) {
 
   const tasksRef = collection(db, "tasks");
   const taskData = {
+    createdAt: serverTimestamp(),
     description: title,
-    userId,
     isArchived: false,
     isCompleted: false,
-    createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
+    userId,
   };
 
   const docRef = await addDoc(tasksRef, taskData);
@@ -33,4 +33,4 @@ export async function saveTask(title, userId, onTaskAdded) {
   }
 
   return docRef;
-}
+};

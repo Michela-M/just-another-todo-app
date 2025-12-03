@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { addDoc, collection } from "firebase/firestore";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { db } from "../../firebase";
-import { collection, addDoc } from "firebase/firestore";
 import { saveTask } from "./saveTask";
 
 vi.mock("firebase/firestore", async () => {
@@ -30,12 +30,12 @@ describe("saveTask", () => {
 
     expect(collection).toHaveBeenCalledWith(db, "tasks");
     expect(mockAddDoc).toHaveBeenCalledWith(mockCollectionRef, {
+      createdAt: "2025-01-01T12:00:00Z",
       description: "New Task",
-      userId: "abc123",
       isArchived: false,
       isCompleted: false,
-      createdAt: "2025-01-01T12:00:00Z",
       updatedAt: "2025-01-01T12:00:00Z",
+      userId: "abc123",
     });
     expect(onTaskAdded).toHaveBeenCalled();
   });

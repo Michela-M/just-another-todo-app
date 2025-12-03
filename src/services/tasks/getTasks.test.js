@@ -1,66 +1,78 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { collection, getDocs } from "firebase/firestore";
 import { getTasks } from "./getTasks";
-import { getDocs, collection } from "firebase/firestore";
+
+const MILLISECONDS_IN_SECOND = 1000;
 
 vi.mock("firebase/firestore", async () => {
   const actual = await vi.importActual("firebase/firestore");
   return {
     ...actual,
-    getDocs: vi.fn(),
     collection: vi.fn(() => ({})),
+    getDocs: vi.fn(),
   };
 });
 
 const mockTasks = [
   {
-    id: "1",
-    userId: "abc123",
     description: "Task 1",
-    isCompleted: false,
+    id: "1",
     isArchived: false,
+    isCompleted: false,
     updatedAt: {
-      seconds: Math.floor(new Date("2025-01-02T10:00:00Z").getTime() / 1000),
+      seconds: Math.floor(
+        new Date("2025-01-02T10:00:00Z").getTime() / MILLISECONDS_IN_SECOND,
+      ),
     },
+    userId: "abc123",
   },
   {
-    id: "2",
-    userId: "abc123",
     description: "Task 2",
-    isCompleted: true,
+    id: "2",
     isArchived: false,
+    isCompleted: true,
     updatedAt: {
-      seconds: Math.floor(new Date("2025-01-01T09:00:00Z").getTime() / 1000),
+      seconds: Math.floor(
+        new Date("2025-01-01T09:00:00Z").getTime() / MILLISECONDS_IN_SECOND,
+      ),
     },
+    userId: "abc123",
   },
   {
-    id: "3",
-    userId: "abc123",
     description: "Task 3",
+    id: "3",
+    isArchived: false,
     isCompleted: false,
-    isArchived: false,
     updatedAt: {
-      seconds: Math.floor(new Date("2025-01-03T08:00:00Z").getTime() / 1000),
+      seconds: Math.floor(
+        new Date("2025-01-03T08:00:00Z").getTime() / MILLISECONDS_IN_SECOND,
+      ),
     },
-  },
-  {
-    id: "4",
-    userId: "otherUser",
-    description: "Task 4",
-    isCompleted: true,
-    isArchived: false,
-    updatedAt: {
-      seconds: Math.floor(new Date("2025-01-04T07:00:00Z").getTime() / 1000),
-    },
-  },
-  {
-    id: "5",
     userId: "abc123",
-    description: "Task 5",
+  },
+  {
+    description: "Task 4",
+    id: "4",
+    isArchived: false,
     isCompleted: true,
-    isArchived: true,
     updatedAt: {
-      seconds: Math.floor(new Date("2025-01-05T07:00:00Z").getTime() / 1000),
+      seconds: Math.floor(
+        new Date("2025-01-04T07:00:00Z").getTime() / MILLISECONDS_IN_SECOND,
+      ),
     },
+    userId: "otherUser",
+  },
+  {
+    description: "Task 5",
+    id: "5",
+    isArchived: true,
+    isCompleted: true,
+    updatedAt: {
+      seconds: Math.floor(
+        new Date("2025-01-05T07:00:00Z").getTime() / MILLISECONDS_IN_SECOND,
+      ),
+    },
+    userId: "abc123",
   },
 ];
 
@@ -70,25 +82,25 @@ describe("getTasks", () => {
     collection.mockReturnValue({});
     getDocs.mockResolvedValue({
       docs: mockTasks.map((task) => ({
-        id: task.id,
         data: () => task,
+        id: task.id,
       })),
     });
   });
 
   it("should return all tasks sorted by lastUpdated", async () => {
     const tasks = await getTasks("abc123");
-    expect(tasks.map((t) => t.id)).toEqual(["3", "1", "2"]);
+    expect(tasks.map((task) => task.id)).toEqual(["3", "1", "2"]);
   });
 
   it("should return only completed tasks", async () => {
     const tasks = await getTasks("abc123", true);
-    expect(tasks.map((t) => t.id)).toEqual(["2"]);
+    expect(tasks.map((task) => task.id)).toEqual(["2"]);
   });
 
   it("should return only active tasks", async () => {
     const tasks = await getTasks("abc123", false);
-    expect(tasks.map((t) => t.id)).toEqual(["3", "1"]);
+    expect(tasks.map((task) => task.id)).toEqual(["3", "1"]);
   });
 
   it("should return empty list if user has no tasks", async () => {
@@ -98,6 +110,6 @@ describe("getTasks", () => {
 
   it("should exclude tasks belonging to other users", async () => {
     const tasks = await getTasks("abc123");
-    expect(tasks.every((t) => t.userId === "abc123")).toBe(true);
+    expect(tasks.every((task) => task.userId === "abc123")).toBe(true);
   });
 });

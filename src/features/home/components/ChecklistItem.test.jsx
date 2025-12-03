@@ -1,8 +1,8 @@
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { vi, describe, it, expect } from "vitest";
 import ChecklistItem from "./ChecklistItem";
 import React from "react";
+import userEvent from "@testing-library/user-event";
 
 describe("ChecklistItem", () => {
   it("renders unchecked state correctly", () => {

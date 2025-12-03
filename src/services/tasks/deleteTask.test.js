@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { deleteTask } from "./deleteTask";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { deleteTask } from "./deleteTask";
 
 vi.mock("firebase/firestore", async () => {
   const actual = await vi.importActual("firebase/firestore");

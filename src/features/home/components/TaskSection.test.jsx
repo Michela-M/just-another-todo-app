@@ -1,8 +1,8 @@
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { vi, describe, it, expect } from "vitest";
-import TaskSection from "./TaskSection";
 import React from "react";
+import TaskSection from "./TaskSection";
+import userEvent from "@testing-library/user-event";
 
 // Mock ChecklistItem so we can focus on TaskSection behavior
 vi.mock("./ChecklistItem", () => ({
@@ -23,13 +23,16 @@ vi.mock("./ChecklistItem", () => ({
 }));
 
 describe("TaskSection", () => {
+  const noopToggle = vi.fn();
+  const noopDelete = vi.fn();
+
   it("renders the title", () => {
     render(
       <TaskSection
         title="Completed Tasks"
         tasks={[]}
-        onToggle={() => {}}
-        onDelete={() => {}}
+        onToggle={noopToggle}
+        onDelete={noopDelete}
       />,
     );
     expect(screen.getByText("Completed Tasks")).toBeInTheDocument();
@@ -40,8 +43,8 @@ describe("TaskSection", () => {
       <TaskSection
         title="To Do"
         tasks={[]}
-        onToggle={() => {}}
-        onDelete={() => {}}
+        onToggle={noopToggle}
+        onDelete={noopDelete}
       />,
     );
     expect(screen.getByText("No tasks")).toBeInTheDocument();
@@ -49,15 +52,15 @@ describe("TaskSection", () => {
 
   it("renders a list of tasks", () => {
     const tasks = [
-      { id: "1", description: "Buy milk", isCompleted: false },
-      { id: "2", description: "Walk dog", isCompleted: true },
+      { description: "Buy milk", id: "1", isCompleted: false },
+      { description: "Walk dog", id: "2", isCompleted: true },
     ];
     render(
       <TaskSection
         title="My Tasks"
         tasks={tasks}
-        onToggle={() => {}}
-        onDelete={() => {}}
+        onToggle={noopToggle}
+        onDelete={noopDelete}
       />,
     );
     expect(screen.getByText("Buy milk")).toBeInTheDocument();
@@ -65,32 +68,30 @@ describe("TaskSection", () => {
   });
 
   it("calls onToggle when checkbox clicked", async () => {
-    const onToggle = vi.fn();
-    const tasks = [{ id: "1", description: "Test task", isCompleted: false }];
+    const tasks = [{ description: "Test task", id: "1", isCompleted: false }];
     render(
       <TaskSection
         title="My Tasks"
         tasks={tasks}
-        onToggle={onToggle}
-        onDelete={() => {}}
+        onToggle={noopToggle}
+        onDelete={noopDelete}
       />,
     );
     await userEvent.click(screen.getByTestId("checkbox-1"));
-    expect(onToggle).toHaveBeenCalledWith("1", true);
+    expect(noopToggle).toHaveBeenCalledWith("1", true);
   });
 
   it("calls onDelete when delete clicked", async () => {
-    const onDelete = vi.fn();
-    const tasks = [{ id: "1", description: "Test task", isCompleted: false }];
+    const tasks = [{ description: "Test task", id: "1", isCompleted: false }];
     render(
       <TaskSection
         title="My Tasks"
         tasks={tasks}
-        onToggle={() => {}}
-        onDelete={onDelete}
+        onToggle={noopToggle}
+        onDelete={noopDelete}
       />,
     );
     await userEvent.click(screen.getByTestId("delete-1"));
-    expect(onDelete).toHaveBeenCalledWith("1");
+    expect(noopDelete).toHaveBeenCalledWith("1");
   });
 });

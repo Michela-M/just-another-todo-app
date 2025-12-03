@@ -1,5 +1,5 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 export default function ChecklistItem({
   id,
@@ -34,9 +34,9 @@ export default function ChecklistItem({
 }
 
 ChecklistItem.propTypes = {
-  id: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   isCompleted: PropTypes.bool.isRequired,
-  onToggle: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
 };

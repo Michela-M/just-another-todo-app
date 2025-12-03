@@ -1,5 +1,5 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 export default function Input({
   label,
@@ -10,7 +10,7 @@ export default function Input({
   ...props
 }) {
   const id =
-    props.id || `input-${placeholder.replace(/\s+/g, "-").toLowerCase()}`;
+    props.id || `input-${placeholder.replace(/\s+/gu, "-").toLowerCase()}`;
 
   return (
     <div className="flex flex-col gap-1 flex-1">
@@ -24,7 +24,7 @@ export default function Input({
         id={id}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(event) => onChange(event.target.value)}
         className="card text-primary px-2 py-2"
         {...props}
       />
@@ -35,10 +35,10 @@ export default function Input({
 }
 
 Input.propTypes = {
-  label: PropTypes.string,
-  placeholder: PropTypes.string,
   helperText: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  onChange: PropTypes.func.isRequired,
   id: PropTypes.string,
+  label: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };

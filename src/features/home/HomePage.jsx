@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { useState, useEffect } from "react";
-import { saveTask } from "../../services/tasks/saveTask";
-import { getTasks } from "../../services/tasks/getTasks";
-import { toggleTaskCompletion } from "../../services/tasks/toggleTaskCompletion";
-import { deleteTask } from "../../services/tasks/deleteTask";
 import TaskSection from "./components/TaskSection";
+import { deleteTask } from "../../services/tasks/deleteTask";
+import { getTasks } from "../../services/tasks/getTasks";
+import { saveTask } from "../../services/tasks/saveTask";
+import { toggleTaskCompletion } from "../../services/tasks/toggleTaskCompletion";
 
 export default function HomePage() {
   const [taskTitle, setTaskTitle] = useState("");
@@ -17,23 +16,21 @@ export default function HomePage() {
   const activeTasks = tasks.filter((task) => !task.isCompleted);
   const completedTasks = tasks.filter((task) => task.isCompleted);
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
   const fetchTasks = async () => {
     const data = await getTasks();
     setTasks(data);
   };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   const handleSave = async () => {
     try {
       setIsLoading(true);
       setError(null);
 
-      await saveTask(taskTitle, () => {
-        console.log("Task added!");
-      });
+      await saveTask(taskTitle);
 
       setTaskTitle("");
 

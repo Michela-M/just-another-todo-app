@@ -1,20 +1,18 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { getCurrentUser } from "./getCurrentUser";
 
 let mockCurrentUser = null;
 
-vi.mock("firebase/auth", () => {
-  return {
-    getAuth: vi.fn(() => ({
-      currentUser: mockCurrentUser,
-    })),
-  };
-});
+vi.mock("firebase/auth", () => ({
+  getAuth: vi.fn(() => ({
+    currentUser: mockCurrentUser,
+  })),
+}));
 
 describe("getCurrentUser", () => {
   it("should return user object when logged in", () => {
     // Precondition: user is logged in
-    mockCurrentUser = { uid: "abc123", email: "user@example.com" };
+    mockCurrentUser = { email: "user@example.com", uid: "abc123" };
 
     const user = getCurrentUser();
     expect(user).toHaveProperty("uid", "abc123");

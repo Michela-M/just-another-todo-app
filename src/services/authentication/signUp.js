@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 /**
  * Sign up a new user with email and password.
@@ -7,13 +7,13 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
  * @returns {Promise<{user: {uid: string, email: string}}>} - The created user object.
  * @throws {Error} - Throws if email is invalid or password is too weak.
  */
-export async function signUp(email, password) {
+export const signUp = async (email, password) => {
   const auth = getAuth();
 
   try {
     const result = await createUserWithEmailAndPassword(auth, email, password);
     return result;
   } catch (error) {
-    throw new Error(error.message);
+    throw new Error(error.message, { cause: error });
   }
-}
+};

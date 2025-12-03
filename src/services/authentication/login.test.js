@@ -1,26 +1,24 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { login } from "./login";
 
-vi.mock("firebase/auth", () => {
-  return {
-    getAuth: vi.fn(() => ({})),
-    signInWithEmailAndPassword: vi.fn((auth, email, password) => {
-      const users = {
-        "user@example.com": "ValidPass123",
-      };
+vi.mock("firebase/auth", () => ({
+  getAuth: vi.fn(() => ({})),
+  signInWithEmailAndPassword: vi.fn((auth, email, password) => {
+    const users = {
+      "user@example.com": "ValidPass123",
+    };
 
-      if (!users[email]) {
-        return Promise.reject(new Error("User not found"));
-      }
-      if (users[email] !== password) {
-        return Promise.reject(new Error("Wrong password"));
-      }
-      return Promise.resolve({
-        user: { uid: "abc123", email },
-      });
-    }),
-  };
-});
+    if (!users[email]) {
+      return Promise.reject(new Error("User not found"));
+    }
+    if (users[email] !== password) {
+      return Promise.reject(new Error("Wrong password"));
+    }
+    return Promise.resolve({
+      user: { email, uid: "abc123" },
+    });
+  }),
+}));
 
 describe("Auth - Login", () => {
   it("should succeed with correct credentials", async () => {

@@ -1,14 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { toggleTaskCompletion } from "./toggleTaskCompletion";
-import { updateDoc, doc } from "firebase/firestore";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { toggleTaskCompletion } from "./toggleTaskCompletion";
 
 vi.mock("firebase/firestore", async () => {
   const actual = await vi.importActual("firebase/firestore");
   return {
     ...actual,
-    updateDoc: vi.fn(),
     doc: vi.fn(),
+    updateDoc: vi.fn(),
   };
 });
 
